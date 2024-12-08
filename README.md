@@ -24,6 +24,20 @@ To use this parser:
 4. Run the parser: `python3 docParser.py`.
 5. Look for the results in `/results/`.
 
+## How to Edit/Update
+This parser uses the `PyPDF2` Python library to read in PDF info. Sometimes this happens neatly, with the text cleanly being read in, but in other documents it may be flawed in some way. When testing, the most frequent flaw was not reading in spaces correctly. The current parser accounts for this. Other flaws might want to be accounted for for long-term use.
+
+This parser uses Regex, or Regular Expressions, to identify the case number and amount in each document. It does so in a very 'dumb' way, just looking for the first instance of characters that matches
+```regex
+([A-Z\d]{5}-[A-Z\d]{4}-[A-Z]{2}-[A-Z\d]{6})
+```
+for case number and
+```regex
+(\$[ \d\.\,]*\.\d\d)
+```
+for amount.
+These regex expressions could be refined in the future to ensure the correct info is extracted, through manual refinement, or if resources are available the same process could be done through machine learning natural language processing. However, regex should be good enough as long as the Complaints have a fairly regular format.
+
 ## Purpose
 This demonstration code was written by James Carey in Dec 2024 as an example of how an Indiana court could possibly parse complaint PDFs. It may also serve as a useful example of court PDF parsing for other researchers. It is not intended for any commercial or malicious purpose.
 
